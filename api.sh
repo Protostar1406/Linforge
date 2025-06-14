@@ -18,6 +18,9 @@ is_service_enabled () {
 	systemctl status "$1" | grep "enabled;" &> /dev/null
 }
 
+is_flathub_enabled () {
+	flatpak remote-list | grep flathub &> /dev/null}
+
 
 # Install system packages
 install_packages () {
@@ -98,4 +101,11 @@ disable_gnome_software_autostart () {
 set_system_hostname () {
 	echo "Setting hostname to $1, will require reboot to take effect."
 	echo "$1" > /etc/hostname
+}
+
+add_flathub_repo () {
+	if ! is_flathub_enabled; then
+		echo "Since flathub is not enabled, we will enable it now."
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	fi
 }

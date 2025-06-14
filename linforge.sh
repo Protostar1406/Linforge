@@ -9,6 +9,7 @@ if [ $1 = switch ]; then
 	add_copr_repo "${copr[@]}"
 	install_packages "${utils[@]}"
 	remove_packages "${system_removals[@]}"
+	add_flathub_repo
 	install_flatpak "${flatpaks[@]}"
 	remove_flatpak "${flatpak_removals[@]}"
 	enable_service "${enable_services[@]}"

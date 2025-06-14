@@ -15,7 +15,7 @@ is_copr_repo_installed () {
 
 # Check if a service is enabled.
 is_service_enabled () {
-	systemctl status "$1" | grep "enabled;"
+	systemctl status "$1" | grep "enabled;" &> /dev/null
 }
 
 
@@ -44,7 +44,7 @@ install_flatpak () {
 	for pkg in "$@"; do
 		if ! is_flatpak_installed "$pkg"; then
 			echo "Installing flatpak $pkg."
-			flatpak install "$pkg" &> /dev/null
+			flatpak install "$pkg" -y &> /dev/null
 		fi
 	done
 }
@@ -54,7 +54,7 @@ remove_flatpak () {
 	for pkg in "$@"; do
 		if is_flatpak_installed "$pkg"; then
 			echo "Removing flatpak $pkg."
-			flatpak remove "$pkg" &> /dev/null
+			flatpak remove "$pkg" -y &> /dev/null
 		fi
 	done
 }
@@ -74,7 +74,17 @@ enable_service () {
 	for service in "$@"; do
 		if ! is_service_enabled "$service"; then
 			echo "Enabling and starting service $service."
-			systemctl enable --now "$service"
+			systemctl enable --now "$service" &> /dev/null
 		fi
 	done
 }
+
+disable_service() {
+	for service in "$@"; do
+		if is_service_enabled "$service"; then
+			echo "Disabling and stopping service $service."
+			systemctl disable --now "$service" &> /dev/null
+		fi
+	done
+}
+

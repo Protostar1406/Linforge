@@ -19,7 +19,8 @@ is_service_enabled () {
 }
 
 is_flathub_enabled () {
-	flatpak remote-list | grep flathub &> /dev/null}
+	flatpak remote-list | grep flathub &> /dev/null
+}
 
 
 # Install system packages

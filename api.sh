@@ -88,3 +88,9 @@ disable_service() {
 	done
 }
 
+disable_gnome_software_autostart () {
+	if [ -f /etc/xdg/autostart/org.gnome.Software.desktop ]; then
+		echo "Disabling Gnome Software by moving it's autostart file to ~/Documents."
+		mv -v /etc/xdg/autostart/org.gnome.Software.desktop /etc/xdg/autostart/org.gnome.Software.desktopdisabled  
+	fi
+}

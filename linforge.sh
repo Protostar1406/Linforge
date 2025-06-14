@@ -14,4 +14,5 @@ if [ $1 = switch ]; then
 	enable_service "${enable_services[@]}"
 	disable_service "${disable_services[@]}"
 	disable_gnome_software_autostart
+	set_system_hostname "ProtostarWorkstation"
 fi

@@ -94,3 +94,8 @@ disable_gnome_software_autostart () {
 		mv -v /etc/xdg/autostart/org.gnome.Software.desktop /etc/xdg/autostart/org.gnome.Software.desktopdisabled  
 	fi
 }
+
+set_system_hostname () {
+	echo "Setting hostname to $1, will require reboot to take effect."
+	echo "$1" > /etc/hostname
+}

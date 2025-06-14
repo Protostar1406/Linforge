@@ -1,6 +1,5 @@
 source ./api.sh
 source ./packages.conf
-echo "Linforge will first request to run a system update, this is not mandatory, but highly recommended to reduce the chances of system breakage, and for your security."
 if [ $1 = upgrade ]; then
 	dnf upgrade
 	flatpak update

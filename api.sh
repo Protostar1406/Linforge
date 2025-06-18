@@ -68,7 +68,7 @@ add_copr_repo () {
 	for copr in "$@"; do
 		if ! is_copr_repo_installed "$copr"; then
 			echo "Enabling copr repo $copr."
-			dnf copr enable "$copr" &> /dev/null
+			dnf copr enable "$copr" -y &> /dev/null
 		fi
 	done
 }

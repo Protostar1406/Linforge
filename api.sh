@@ -18,8 +18,8 @@ is_service_enabled () {
 	systemctl status "$1" | grep "enabled;" &> /dev/null
 }
 
-is_flathub_enabled () {
-	flatpak remote-list | grep flathub &> /dev/null
+is_flatpak_repo_enabled () {
+	flatpak remote-list | grep $1 &> /dev/null
 }
 
 
@@ -105,8 +105,14 @@ set_system_hostname () {
 }
 
 add_flathub_repo () {
-	if ! is_flathub_enabled; then
+	if ! is_flatpak_repo_enabled "flathub"; then
 		echo "Since flathub is not enabled, we will enable it now."
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	fi
+}
+
+remove_fedora_native_flatpak_repo () {
+	if is_flatpak_repo_enabled "fedora"; then
+		flatpak remote-delete fedora
 	fi
 }
